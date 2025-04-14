@@ -1,5 +1,6 @@
 // app/services/[slug]/page.tsx
 
+import { notFound } from "next/navigation";
 import Logistics from "../sections/Logistics";
 import Warehouse from "../sections/Warehouse";
 import Express from "../sections/Express";
@@ -11,43 +12,45 @@ import National from "../sections/National";
 import Tailored from "../sections/Tailored";
 import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 
-const componentMap: Record<string, () => JSX.Element> = {
-  logistics: () => <Logistics />,
-  warehouse: () => <Warehouse />,
-  express: () => <Express />,
-  surface: () => <Surface />,
-  b2b: () => <B2B />,
-  b2c: () => <B2C />,
-  d2c: () => <D2C />,
-  national: () => <National />,
-  tailored: () => <Tailored />,
+type Params = {
+  slug: string;
 };
 
-export async function generateStaticParams() {
-  return [
-    { slug: "logistics" },
-    { slug: "warehouse" },
-    { slug: "express" },
-    { slug: "surface" },
-    { slug: "b2b" },
-    { slug: "b2c" },
-    { slug: "d2c" },
-    { slug: "national" },
-    { slug: "tailored" },
-  ];
-}
-
-type PageProps = {
-  params: {
-    slug: string;
-  };
+const componentMap: Record<string, React.ComponentType> = {
+  logistics: Logistics,
+  warehouse: Warehouse,
+  express: Express,
+  surface: Surface,
+  b2b: B2B,
+  b2c: B2C,
+  d2c: D2C,
+  national: National,
+  tailored: Tailored,
 };
 
-export default function ServicePage({ params }: PageProps) {
-  const Component = componentMap[params.slug];
+const servicesMeta: Record<
+  string,
+  { title: string }
+> = {
+  logistics: { title: "Logistic Solutions" },
+  warehouse: { title: "Advanced Warehouse Storage" },
+  express: { title: "Express Delivery" },
+  surface: { title: "Surface Delivery" },
+  b2b: { title: "B2B Logistics Solution" },
+  b2c: { title: "B2C Pickup and Drop" },
+  d2c: { title: "D2C Delivery" },
+  national: { title: "National Logistic Solutions" },
+  tailored: { title: "Tailored Solutions" },
+};
 
-  if (!Component) {
-    return <div>Service not found</div>;
+export default function ServicePage({ params }: { params: Params }) {
+  const { slug } = params;
+
+  const Component = componentMap[slug];
+  const service = servicesMeta[slug];
+
+  if (!Component || !service) {
+    notFound(); // Handles missing services more gracefully
   }
 
   return (
