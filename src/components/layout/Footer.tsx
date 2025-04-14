@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, MapPin, PhoneCall } from "lucide-react";
+import { MapPin, PhoneCall, Mail } from "lucide-react"; // Included Mail icon here if you want to use it
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -19,7 +19,14 @@ export default function Footer() {
     <footer className="bg-[#080820] text-white pt-16 pb-6 px-4 md:px-12">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8">
         {/* Column 1 - Logo + Desc */}
-        <motion.div className="md:col-span-3" custom={0} initial="hidden" whileInView="visible" variants={fadeUp} viewport={{ once: true }}>
+        <motion.div
+          className="md:col-span-3"
+          custom={0}
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeUp}
+          viewport={{ once: true }}
+        >
           <Image
             src="/images/footerlogo.png"
             alt="Bulls Logistics Logo"
@@ -34,7 +41,14 @@ export default function Footer() {
         </motion.div>
 
         {/* Column 2 - Quick Links */}
-        <motion.div className="md:col-span-2" custom={1} initial="hidden" whileInView="visible" variants={fadeUp} viewport={{ once: true }}>
+        <motion.div
+          className="md:col-span-2"
+          custom={1}
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeUp}
+          viewport={{ once: true }}
+        >
           <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm">
             {["Legals", "Privacy Policy", "Terms & Conditions", "Refund & Return Policy", "Shipping Policy"].map((link, i) => (
@@ -51,7 +65,14 @@ export default function Footer() {
         </motion.div>
 
         {/* Column 3 - Official Info */}
-        <motion.div className="md:col-span-4" custom={2} initial="hidden" whileInView="visible" variants={fadeUp} viewport={{ once: true }}>
+        <motion.div
+          className="md:col-span-4"
+          custom={2}
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeUp}
+          viewport={{ once: true }}
+        >
           <h3 className="text-lg font-semibold mb-4">Official info:</h3>
           <div className="flex items-start gap-2 text-sm text-gray-300 mb-4">
             <MapPin className="text-orange-500 w-6 h-6 mt-1 w-10" />
@@ -61,6 +82,11 @@ export default function Footer() {
             <PhoneCall className="text-orange-500 w-6 h-6 w-8" />
             <a href="tel:+919953666767"> +91-9953-66-6767</a>
           </div>
+          {/* Added Mail icon in the Official Info section */}
+          <div className="flex items-center gap-2 text-sm text-gray-300 mb-4">
+            <Mail className="text-orange-500 w-6 h-6 mt-1 w-10" />
+            <a href="mailto:contact@bullslogistics.com">contact@bullslogistics.com</a>
+          </div>
           <div className="text-sm text-gray-300">
             <span className="font-bold underline">Open Hours:</span>
             <p className="mt-3">Mon-Sat: 09:00 AM – 07:00 PM</p>
@@ -68,7 +94,14 @@ export default function Footer() {
         </motion.div>
 
         {/* Column 4 - Newsletter */}
-        <motion.div className="md:col-span-3" custom={3} initial="hidden" whileInView="visible" variants={fadeUp} viewport={{ once: true }}>
+        <motion.div
+          className="md:col-span-3"
+          custom={3}
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeUp}
+          viewport={{ once: true }}
+        >
           <h3 className="text-lg font-semibold mb-4">Subscribe to our Newsletter</h3>
           <p className="text-sm text-gray-300 mb-4">
             Stay updated with the latest logistics trends, offers & insights. Subscribe now!

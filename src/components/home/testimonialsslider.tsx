@@ -22,7 +22,7 @@ const testimonials = [
     name: "Ankit Sharma",
     title: "Ecommerce Owner",
     review:
-      "Bulls Logistics handles our D2C deliveries with precision. Their tailored COD facilities and dedicated vendor manager make our shipping process smooth and reliable.”								",
+      "Bulls Logistics handles our D2C deliveries with precision. Their tailored COD facilities and dedicated vendor manager make our shipping process smooth and reliable.&quot;",
   },
   {
     name: "Neha Verma",
@@ -32,9 +32,9 @@ const testimonials = [
 ]
 
 export function TestimonialsSlider() {
-    const plugin = React.useRef(
-      Autoplay({ delay: 3000, stopOnInteraction: false })
-    )
+  const plugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: false })
+  )
   return (
     <section className="py-20 px-4 md:px-8 bg-white text-black text-center">
       <h4 className="text-sm font-medium text-[#db7603] mb-2 uppercase">Testimonials</h4>
@@ -67,7 +67,7 @@ export function TestimonialsSlider() {
                     <Card className="bg-[#f9f9f9] text-left shadow-md h-full">
                       <CardContent className="px-8 py-4 space-y-3">
                         <Quote size={40} className="text-[#db7603]" />
-                        <p className="text-gray-800 italic">"{item.review}"</p>
+                        <p className="text-gray-800 italic">&quot;{item.review}&quot;</p>
                         <div>
                           <h4 className="text-lg font-bold text-black">{item.name}</h4>
                           <p className="text-sm text-gray-500">{item.title}</p>

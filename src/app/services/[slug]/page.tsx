@@ -1,7 +1,5 @@
 // app/services/[slug]/page.tsx
 
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";  // Importing Metadata type
 import Logistics from "../sections/Logistics";
 import Warehouse from "../sections/Warehouse";
 import Express from "../sections/Express";
@@ -13,57 +11,44 @@ import National from "../sections/National";
 import Tailored from "../sections/Tailored";
 import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 
-// List of services with title, slug, and component name
-const services = [
-  { title: "Logistic Solutions", slug: "logistics", component: "Logistics" },
-  { title: "Advanced Warehouse Storage", slug: "warehouse", component: "Warehouse" },
-  { title: "Express Delivery", slug: "express", component: "Express" },
-  { title: "Surface Delivery", slug: "surface", component: "Surface" },
-  { title: "B2B Logistics Solution", slug: "b2b", component: "B2B" },
-  { title: "B2C Pickup and Drop", slug: "b2c", component: "B2C" },
-  { title: "D2C Delivery", slug: "d2c", component: "D2C" },
-  { title: "National Logistic Solutions", slug: "national", component: "National" },
-  { title: "Tailored Solutions", slug: "tailored", component: "Tailored" },
-];
-
-// Component map for dynamic import
-const componentMap: Record<string, React.ComponentType> = {
-  Logistics,
-  Warehouse,
-  Express,
-  Surface,
-  B2B,
-  B2C,
-  D2C,
-  National,
-  Tailored,
+const componentMap: Record<string, () => JSX.Element> = {
+  logistics: () => <Logistics />,
+  warehouse: () => <Warehouse />,
+  express: () => <Express />,
+  surface: () => <Surface />,
+  b2b: () => <B2B />,
+  b2c: () => <B2C />,
+  d2c: () => <D2C />,
+  national: () => <National />,
+  tailored: () => <Tailored />,
 };
 
-// Static params for dynamic routes
-export function generateStaticParams() {
-  return services.map(service => ({ slug: service.slug }));
+export async function generateStaticParams() {
+  return [
+    { slug: "logistics" },
+    { slug: "warehouse" },
+    { slug: "express" },
+    { slug: "surface" },
+    { slug: "b2b" },
+    { slug: "b2c" },
+    { slug: "d2c" },
+    { slug: "national" },
+    { slug: "tailored" },
+  ];
 }
 
-// **Generate dynamic metadata for SEO**
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const service = services.find(s => s.slug === params.slug);  // Finding the service based on slug
-
-  if (!service) return {};  // Return empty if service not found
-
-  // Return dynamic title and description based on the service
-  return {
-    title: service.title,  // Dynamic page title
-    description: `Learn more about our ${service.title.toLowerCase()}. We provide professional and reliable service tailored to your needs.`,  // Dynamic meta description
+type PageProps = {
+  params: {
+    slug: string;
   };
-}
+};
 
-// The actual page rendering for the service
-export default function ServicePage({ params }: { params: { slug: string } }) {
-  const service = services.find(s => s.slug === params.slug);
-  if (!service) return notFound();
+export default function ServicePage({ params }: PageProps) {
+  const Component = componentMap[params.slug];
 
-  const Component = componentMap[service.component];
-  if (!Component) return notFound();
+  if (!Component) {
+    return <div>Service not found</div>;
+  }
 
   return (
     <div className="all_services">
